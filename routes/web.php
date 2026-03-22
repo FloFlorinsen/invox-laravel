@@ -27,6 +27,11 @@ Route::any('/test-root', fn () => response()->json([
     'pathInfo' => request()->getPathInfo(),
 ]));
 
+// TEMP: read debug log
+Route::get('/debug-log', fn () => response()->json(
+    json_decode(file_get_contents(storage_path('logs/debug-request.json')) ?: '{}', true) ?? ['error' => 'no log file']
+));
+
 // TEMP: test root without auth
 Route::get('/', fn () => response()->json(['root_works' => true, 'method' => request()->getMethod()]));
 
