@@ -17,12 +17,4 @@ require __DIR__.'/../vendor/autoload.php';
 /** @var Application $app */
 $app = require_once __DIR__.'/../bootstrap/app.php';
 
-$request = Request::capture();
-
-// Fix SCRIPT_NAME when running in a subdirectory via .htaccess rewrite to public/
-$scriptName = $request->server->get('SCRIPT_NAME', '');
-if (str_contains($scriptName, '/public/index.php')) {
-    $request->server->set('SCRIPT_NAME', str_replace('/public/index.php', '/index.php', $scriptName));
-}
-
-$app->handleRequest($request);
+$app->handleRequest(Request::capture());
