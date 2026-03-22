@@ -19,8 +19,8 @@ $app = require_once __DIR__.'/../bootstrap/app.php';
 
 $request = Request::capture();
 
-if (($baseUrl = env('APP_BASE_PATH')) !== null) {
-    $request->server->set('SCRIPT_NAME', $baseUrl . '/index.php');
+if (($basePath = $_SERVER['APP_BASE_PATH'] ?? null) !== null) {
+    $request->server->set('SCRIPT_NAME', $basePath . '/index.php');
 }
 
 $app->handleRequest($request);
