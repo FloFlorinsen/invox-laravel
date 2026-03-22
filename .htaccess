@@ -3,6 +3,8 @@
         Options -MultiViews -Indexes
     </IfModule>
 
+    DirectoryIndex disabled
+
     RewriteEngine On
     RewriteBase /tools/invox/
 
