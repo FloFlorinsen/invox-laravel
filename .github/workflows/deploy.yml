@@ -33,29 +33,30 @@ jobs:
 
       - name: Create .env
         run: |
-          cat <<EOF > .env
+          cat > .env <<'ENVEOF'
           APP_NAME=invox
           APP_ENV=production
-          APP_KEY=${{ secrets.APP_KEY }}
           APP_DEBUG=false
-          APP_URL=${{ secrets.APP_URL }}
-          DB_HOST=${{ secrets.DB_HOST }}
-          DB_PORT=3306
-          DB_DATABASE=${{ secrets.DB_DATABASE }}
-          DB_USERNAME=${{ secrets.DB_USERNAME }}
-          DB_PASSWORD=${{ secrets.DB_PASSWORD }}
           SESSION_DRIVER=database
           QUEUE_CONNECTION=database
           CACHE_STORE=database
           FILESYSTEM_DISK=local
-          OWNER_NAME=${{ secrets.OWNER_NAME }}
-          OWNER_EMAIL=${{ secrets.OWNER_EMAIL }}
-          OWNER_PASSWORD=${{ secrets.OWNER_PASSWORD }}
-          EOF
+          ENVEOF
+          sed -i 's/^ *//' .env
+          echo "APP_KEY=${{ secrets.APP_KEY }}" >> .env
+          echo "APP_URL=${{ secrets.APP_URL }}" >> .env
+          echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
+          echo "DB_PORT=3306" >> .env
+          echo "DB_DATABASE=${{ secrets.DB_DATABASE }}" >> .env
+          echo "DB_USERNAME=${{ secrets.DB_USERNAME }}" >> .env
+          echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
+          echo "OWNER_NAME=${{ secrets.OWNER_NAME }}" >> .env
+          echo "OWNER_EMAIL=${{ secrets.OWNER_EMAIL }}" >> .env
+          echo "OWNER_PASSWORD=${{ secrets.OWNER_PASSWORD }}" >> .env
 
       - name: Create deploy archive
         run: |
-          zip -r /tmp/deploy.zip . \
+          zip -rq /tmp/deploy.zip . \
             -x ".git/*" \
             -x "node_modules/*" \
             -x "tests/*" \
@@ -77,4 +78,4 @@ jobs:
           sshpass -p "${{ secrets.SFTP_PASSWORD }}" \
             ssh -oStrictHostKeyChecking=no -p ${{ secrets.SFTP_PORT }} \
             ${{ secrets.SFTP_USERNAME }}@${{ secrets.SFTP_HOST }} \
-            "cd ${{ secrets.SFTP_REMOTE_DIR }} && unzip -o deploy.zip && rm deploy.zip && php artisan migrate --force && php artisan config:cache && php artisan route:cache && php artisan view:cache"
+            "cd ${{ secrets.SFTP_REMOTE_DIR }} && unzip -oq deploy.zip && rm deploy.zip && php artisan migrate --force && php artisan config:cache && php artisan route:cache && php artisan view:cache"
