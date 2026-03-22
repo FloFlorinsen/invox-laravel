@@ -10,8 +10,12 @@ import '@fontsource-variable/geist'
 const basePath = import.meta.env.VITE_BASE_PATH || ''
 if (basePath) {
     axios.interceptors.request.use((config) => {
-        if (config.url?.startsWith('/') && !config.url.startsWith(basePath)) {
-            config.url = basePath + config.url
+        if (config.url) {
+            const url = new URL(config.url, window.location.origin)
+            if (!url.pathname.startsWith(basePath)) {
+                url.pathname = basePath + url.pathname
+                config.url = url.href
+            }
         }
         return config
     })
