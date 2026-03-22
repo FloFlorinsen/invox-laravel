@@ -4,6 +4,7 @@
     </IfModule>
 
     RewriteEngine On
+    RewriteBase /tools/invox/
 
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
