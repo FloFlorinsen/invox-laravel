@@ -1,0 +1,15 @@
+export { default as IconAdd } from '@material-symbols/svg-400/rounded/add.svg?react';
+export { default as IconArrowBack } from '@material-symbols/svg-400/rounded/arrow_back.svg?react';
+export { default as IconClose } from '@material-symbols/svg-400/rounded/close.svg?react';
+export { default as IconContacts } from '@material-symbols/svg-400/rounded/group.svg?react';
+export { default as IconDelete } from '@material-symbols/svg-400/rounded/delete.svg?react';
+export { default as IconEdit } from '@material-symbols/svg-400/rounded/edit.svg?react';
+export { default as IconHome } from '@material-symbols/svg-400/rounded/home.svg?react';
+export { default as IconLogout } from '@material-symbols/svg-400/rounded/logout.svg?react';
+export { default as IconMenu } from '@material-symbols/svg-400/rounded/menu.svg?react';
+export { default as IconDownload } from '@material-symbols/svg-400/rounded/download.svg?react';
+export { default as IconExpenses } from '@material-symbols/svg-400/rounded/payments.svg?react';
+export { default as IconReceipt } from '@material-symbols/svg-400/rounded/receipt.svg?react';
+export { default as IconUpload } from '@material-symbols/svg-400/rounded/upload_file.svg?react';
+export { default as IconVisibility } from '@material-symbols/svg-400/rounded/visibility.svg?react';
+export { default as IconVisibilityOff } from '@material-symbols/svg-400/rounded/visibility_off.svg?react';

@@ -1,0 +1,61 @@
+{
+    "$schema": "https://www.schemastore.org/package.json",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "build": "vite build",
+        "build:ssr": "vite build && vite build --ssr",
+        "dev": "vite",
+        "format": "prettier --write resources/",
+        "format:check": "prettier --check resources/",
+        "lint": "eslint . --fix",
+        "lint:check": "eslint .",
+        "types:check": "tsc --noEmit"
+    },
+    "devDependencies": {
+        "@eslint/js": "^10.0.1",
+        "@laravel/vite-plugin-wayfinder": "^0.1.7",
+        "@stylistic/eslint-plugin": "^5.10.0",
+        "@types/node": "^25.5.0",
+        "babel-plugin-react-compiler": "^1.0.0",
+        "eslint": "^10.1.0",
+        "eslint-config-prettier": "^10.1.8",
+        "eslint-import-resolver-typescript": "^4.4.4",
+        "eslint-plugin-import": "^2.32.0",
+        "eslint-plugin-react": "^7.37.5",
+        "eslint-plugin-react-hooks": "^7.0.1",
+        "prettier": "^3.8.1",
+        "prettier-plugin-tailwindcss": "^0.7.2",
+        "typescript-eslint": "^8.57.1",
+        "vite-plugin-svgr": "^4.5.0"
+    },
+    "dependencies": {
+        "@fontsource-variable/geist": "^5.2.8",
+        "@heroui/react": "^3.0.1",
+        "@inertiajs/react": "^2.3.18",
+        "@material-symbols/svg-400": "^0.42.3",
+        "@react-pdf/renderer": "^4.3.2",
+        "@tailwindcss/vite": "^4.2.2",
+        "@types/react": "^19.2.14",
+        "@types/react-dom": "^19.2.3",
+        "@vitejs/plugin-react": "^6.0.1",
+        "concurrently": "^9.2.1",
+        "date-fns": "^4.1.0",
+        "globals": "^17.4.0",
+        "laravel-vite-plugin": "^3.0.0",
+        "react": "^19.2.4",
+        "react-currency-input-field": "^4.0.5",
+        "react-dom": "^19.2.4",
+        "tailwindcss": "^4.2.2",
+        "typescript": "^5.9.3",
+        "vite": "^8.0.1"
+    },
+    "optionalDependencies": {
+        "@rollup/rollup-linux-x64-gnu": "4.59.1",
+        "@rollup/rollup-win32-x64-msvc": "4.59.1",
+        "@tailwindcss/oxide-linux-x64-gnu": "^4.2.2",
+        "@tailwindcss/oxide-win32-x64-msvc": "^4.2.2",
+        "lightningcss-linux-x64-gnu": "^1.32.0",
+        "lightningcss-win32-x64-msvc": "^1.32.0"
+    }
+}
