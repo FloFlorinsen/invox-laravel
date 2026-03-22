@@ -1,10 +1,16 @@
-import { createInertiaApp } from '@inertiajs/react';
-import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
-import '../css/app.css';
-import { initializeTheme } from '@/hooks/use-appearance';
-import '@fontsource-variable/geist';
+import { createInertiaApp } from '@inertiajs/react'
+import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers'
+import axios from 'axios'
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import '../css/app.css'
+import { initializeTheme } from '@/hooks/use-appearance'
+import '@fontsource-variable/geist'
+
+const basePath = import.meta.env.VITE_BASE_PATH || ''
+if (basePath) {
+    axios.defaults.baseURL = basePath
+}
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 

@@ -32,6 +32,7 @@ jobs:
         run: bun run build
         env:
           ASSET_URL: ${{ secrets.APP_URL }}
+          VITE_BASE_PATH: /tools/invox
 
       - name: Prepare root entry point for subdirectory hosting
         run: sed "s|__DIR__.'/../|__DIR__.'/|g" public/index.php > index.php
