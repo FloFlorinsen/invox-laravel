@@ -10,11 +10,17 @@ import type { Expense, Invoice } from '@/types'
 
 type InvoiceWithTotal = Invoice & { total: string | null }
 
+interface CategoryTotal {
+    category: string
+    total: number
+}
+
 interface Props {
     year: number
     availableYears: number[]
     invoices: InvoiceWithTotal[]
     expenses: Expense[]
+    expenseCategoryTotals: CategoryTotal[]
     totalIncome: number
     totalExpenses: number
     profit: number
@@ -33,6 +39,7 @@ export default function Home({
     availableYears,
     invoices,
     expenses,
+    expenseCategoryTotals,
     totalIncome,
     totalExpenses,
     profit,
@@ -192,6 +199,23 @@ export default function Home({
                                 </div>
                             )}
                         </Card.Content>
+                        {expenseCategoryTotals.length > 0 && (
+                            <Card.Content className="border-divider border-t pt-3">
+                                <div className="space-y-1">
+                                    {expenseCategoryTotals.map(({ category, total }) => (
+                                        <div
+                                            key={category}
+                                            className="text-default-500 flex items-center justify-between text-sm"
+                                        >
+                                            <span>{category}</span>
+                                            <span className="tabular-nums">
+                                                {formatCurrency(total)}
+                                            </span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </Card.Content>
+                        )}
                         {expenses.length > 0 && (
                             <Card.Footer className="justify-between font-semibold">
                                 <span className="text-sm">Gesamt</span>

@@ -19,12 +19,14 @@ import {
     PdfTableRow,
 } from '@/components/pdf/pdf-table';
 
+const basePath = import.meta.env.VITE_BASE_PATH || ''
+
 Font.register({
     family: 'Geist',
     fonts: [
-        { src: '/Geist-Regular.otf', fontWeight: 400 },
-        { src: '/Geist-Medium.otf', fontWeight: 500 },
-        { src: '/Geist-SemiBold.otf', fontWeight: 600 },
+        { src: `${basePath}/Geist-Regular.otf`, fontWeight: 400 },
+        { src: `${basePath}/Geist-Medium.otf`, fontWeight: 500 },
+        { src: `${basePath}/Geist-SemiBold.otf`, fontWeight: 600 },
     ],
 });
 

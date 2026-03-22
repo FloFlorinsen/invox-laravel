@@ -6,6 +6,7 @@ import LinkButton from '@/components/link-button'
 import { create, destroy, download, edit } from '@/routes/expenses'
 import type { Expense } from '@/types'
 import { IconAdd, IconDownload } from '@/icons'
+import { prefixUrl } from '@/utils/url'
 
 interface Props {
     expenses: Expense[]
@@ -78,7 +79,7 @@ export default function ExpensesIndex({ expenses }: Props) {
                                     <div className="flex items-center gap-2">
                                         {expense.invoice_path && (
                                             <a
-                                                href={download(expense.id).url}
+                                                href={prefixUrl(download(expense.id).url)}
                                                 className="text-default-500 hover:text-foreground transition-colors"
                                                 aria-label="Rechnung herunterladen"
                                             >

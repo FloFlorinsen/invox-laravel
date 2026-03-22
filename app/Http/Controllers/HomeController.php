@@ -38,11 +38,21 @@ class HomeController extends Controller
         $totalIncome = (float) $invoices->sum('total');
         $totalExpenses = (float) $expenses->sum('price');
 
+        $expenseCategoryTotals = $expenses
+            ->groupBy(fn (Expense $e): string => $e->category ?? 'Sonstiges')
+            ->map(fn ($items, $category): array => [
+                'category' => $category,
+                'total' => (float) $items->sum('price'),
+            ])
+            ->sortByDesc('total')
+            ->values();
+
         return Inertia::render('home', [
             'year' => $year,
             'availableYears' => $availableYears,
             'invoices' => $invoices,
             'expenses' => $expenses,
+            'expenseCategoryTotals' => $expenseCategoryTotals,
             'totalIncome' => $totalIncome,
             'totalExpenses' => $totalExpenses,
             'profit' => $totalIncome - $totalExpenses,
