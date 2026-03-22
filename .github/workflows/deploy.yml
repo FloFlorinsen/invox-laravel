@@ -85,4 +85,4 @@ jobs:
           sshpass -p "${{ secrets.SFTP_PASSWORD }}" \
             ssh -oStrictHostKeyChecking=no -p ${{ secrets.SFTP_PORT }} \
             ${{ secrets.SFTP_USERNAME }}@${{ secrets.SFTP_HOST }} \
-            "cd ${{ secrets.SFTP_REMOTE_DIR }} && unzip -oq deploy.zip && rm deploy.zip && cp -r public/build . 2>/dev/null; cp public/*.ico public/*.svg public/*.png public/*.txt public/*.otf . 2>/dev/null; mkdir -p storage/framework/{cache,sessions,views} storage/logs storage/app/private && php artisan migrate --force && mkdir -p bootstrap/cache && php artisan config:cache && php artisan route:clear && php artisan view:cache"
+            "cd ${{ secrets.SFTP_REMOTE_DIR }} && unzip -oq deploy.zip && rm deploy.zip && cp -r public/build . 2>/dev/null; cp public/*.ico public/*.svg public/*.png public/*.txt public/*.otf . 2>/dev/null; mkdir -p storage/framework/{cache,sessions,views} storage/logs storage/app/private && php artisan migrate --force && php artisan db:seed --force && mkdir -p bootstrap/cache && php artisan config:cache && php artisan route:clear && php artisan view:cache"

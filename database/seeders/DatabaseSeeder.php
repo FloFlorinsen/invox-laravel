@@ -13,10 +13,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->create([
-            'name' => config('auth.owner.name'),
-            'email' => config('auth.owner.email'),
-            'password' => config('auth.owner.password'),
-        ]);
+        User::query()->firstOrCreate(
+            ['email' => config('auth.owner.email')],
+            [
+                'name' => config('auth.owner.name'),
+                'password' => config('auth.owner.password'),
+            ],
+        );
     }
 }
