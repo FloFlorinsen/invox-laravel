@@ -19,19 +19,17 @@ jobs:
           php-version: '8.4'
           tools: composer:v2
 
-      - name: Setup Node
-        uses: actions/setup-node@v6
-        with:
-          node-version: '22'
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
 
       - name: Install Composer dependencies
         run: composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
 
       - name: Install Node dependencies
-        run: npm i
+        run: bun install
 
       - name: Build assets
-        run: npm run build
+        run: bun run build
 
       - name: Create .env
         run: |
