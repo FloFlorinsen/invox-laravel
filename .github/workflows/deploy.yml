@@ -53,14 +53,28 @@ jobs:
           OWNER_PASSWORD=${{ secrets.OWNER_PASSWORD }}
           EOF
 
-      - name: Deploy via SFTP
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
-        with:
-          server: ${{ secrets.SFTP_HOST }}
-          port: ${{ secrets.SFTP_PORT }}
-          username: ${{ secrets.SFTP_USERNAME }}
-          password: ${{ secrets.SFTP_PASSWORD }}
-          local_path: './*'
-          remote_path: ${{ secrets.SFTP_REMOTE_DIR }}
-          sftpArgs: '-o ConnectTimeout=30'
-          exclude: '.git/,node_modules/,tests/,storage/logs/,storage/framework/cache/,storage/framework/sessions/,storage/framework/views/,storage/app/'
+      - name: Create deploy archive
+        run: |
+          zip -r /tmp/deploy.zip . \
+            -x ".git/*" \
+            -x "node_modules/*" \
+            -x "tests/*" \
+            -x "storage/logs/*" \
+            -x "storage/framework/cache/*" \
+            -x "storage/framework/sessions/*" \
+            -x "storage/framework/views/*"
+
+      - name: Upload archive via SFTP
+        run: |
+          sshpass -p "${{ secrets.SFTP_PASSWORD }}" \
+            sftp -oBatchMode=no -oStrictHostKeyChecking=no -P ${{ secrets.SFTP_PORT }} \
+            ${{ secrets.SFTP_USERNAME }}@${{ secrets.SFTP_HOST }} <<SFTP
+          put /tmp/deploy.zip ${{ secrets.SFTP_REMOTE_DIR }}/deploy.zip
+          SFTP
+
+      - name: Extract and clean up on server
+        run: |
+          sshpass -p "${{ secrets.SFTP_PASSWORD }}" \
+            ssh -oStrictHostKeyChecking=no -p ${{ secrets.SFTP_PORT }} \
+            ${{ secrets.SFTP_USERNAME }}@${{ secrets.SFTP_HOST }} \
+            "cd ${{ secrets.SFTP_REMOTE_DIR }} && unzip -o deploy.zip && rm deploy.zip && php artisan migrate --force && php artisan config:cache && php artisan route:cache && php artisan view:cache"
