@@ -30,6 +30,8 @@ jobs:
 
       - name: Build assets
         run: bun run build
+        env:
+          ASSET_URL: ${{ secrets.APP_URL }}
 
       - name: Prepare root entry point for subdirectory hosting
         run: sed "s|__DIR__.'/../|__DIR__.'/|g" public/index.php > index.php
