@@ -19,15 +19,15 @@ $app = require_once __DIR__.'/../bootstrap/app.php';
 
 $request = Request::capture();
 
-// TEMP: dump request info for root path debugging
-if ($request->getPathInfo() === '/' || $request->getRequestUri() === '/tools/invox/') {
-    file_put_contents(__DIR__ . '/../storage/logs/debug-request.json', json_encode([
-        'pathInfo' => $request->getPathInfo(),
-        'baseUrl' => $request->getBaseUrl(),
-        'method' => $request->getMethod(),
-        'requestUri' => $request->getRequestUri(),
-        'scriptName' => $request->server->get('SCRIPT_NAME'),
-    ], JSON_PRETTY_PRINT));
-}
+// TEMP: always dump request debug info
+@file_put_contents(__DIR__ . '/../debug-request.json', json_encode([
+    'pathInfo' => $request->getPathInfo(),
+    'baseUrl' => $request->getBaseUrl(),
+    'method' => $request->getMethod(),
+    'requestUri' => $request->getRequestUri(),
+    'scriptName' => $request->server->get('SCRIPT_NAME'),
+    'phpSelf' => $request->server->get('PHP_SELF'),
+    'file' => __FILE__,
+], JSON_PRETTY_PRINT));
 
 $app->handleRequest($request);
