@@ -52,6 +52,7 @@ jobs:
             'OWNER_NAME="${{ secrets.OWNER_NAME }}"' \
             'OWNER_EMAIL=${{ secrets.OWNER_EMAIL }}' \
             'OWNER_PASSWORD="${{ secrets.OWNER_PASSWORD }}"' \
+            'APP_BASE_PATH=/tools/invox' \
             > .env
 
       - name: Create deploy archive
