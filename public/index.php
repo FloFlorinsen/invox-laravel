@@ -19,8 +19,10 @@ $app = require_once __DIR__.'/../bootstrap/app.php';
 
 $request = Request::capture();
 
-if (($basePath = $_SERVER['APP_BASE_PATH'] ?? null) !== null) {
-    $request->server->set('SCRIPT_NAME', $basePath . '/index.php');
+// Fix SCRIPT_NAME when running in a subdirectory via .htaccess rewrite to public/
+$scriptName = $request->server->get('SCRIPT_NAME', '');
+if (str_contains($scriptName, '/public/index.php')) {
+    $request->server->set('SCRIPT_NAME', str_replace('/public/index.php', '/index.php', $scriptName));
 }
 
 $app->handleRequest($request);
