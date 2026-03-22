@@ -5,6 +5,7 @@
 
     RewriteEngine On
     RewriteBase /tools/invox/
+    SetEnv APP_BASE_PATH /tools/invox
 
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
