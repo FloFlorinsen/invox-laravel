@@ -17,12 +17,4 @@ require __DIR__.'/../vendor/autoload.php';
 /** @var Application $app */
 $app = require_once __DIR__.'/../bootstrap/app.php';
 
-$request = Request::capture();
-
-// TEMP: debug headers
-header('X-Debug-PathInfo: ' . $request->getPathInfo());
-header('X-Debug-Method: ' . $request->getMethod());
-header('X-Debug-BaseUrl: ' . $request->getBaseUrl());
-header('X-Debug-File: ' . __FILE__);
-
-$app->handleRequest($request);
+$app->handleRequest(Request::capture());
